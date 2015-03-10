@@ -4,11 +4,14 @@ import argparse
 
 import numpy as np
 import scipy as sp
+from scipy import misc
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 
 import skimage
 import skimage.io as io
+
+
 
 
 ##Paso 1 - Carga de imágenes
@@ -30,7 +33,8 @@ train = np.array(train)
 test = np.array(test)
 
 meanTrain = np.mean(train, axis = 0)
-print meanTrain.size
-print train[0].size
+deviationTrain = np.std(train, axis= 0)
 
-#print meanTrain
+#Si se quiere imprimir imágenes de estas dos matrices
+#misc.imsave('mediana.png', meanTrain)
+#misc.imsave('desviacionEstandard.png', deviationTrain)

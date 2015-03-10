@@ -54,6 +54,9 @@ for i in range(nImagenes):
     #filtra los elementos menores al recorte
     filtrado = ma.masked_less_equal(restaAbs,0.3)
     filtrado = filtrado.filled(fill_value = 0)
+    #filtra los elementos mayores y les pone 1
+    filtrado = ma.masked_greater(filtrado,0.3)
+    filtrado = filtrado.filled(fill_value = 1)
 
     #Si se quieren imprimir imagenes del proceso
-    #misc.imsave('pulido['+str(i)+'].png', filtrado)
+    misc.imsave('pulido['+str(i)+'].png', filtrado)

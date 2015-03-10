@@ -1,3 +1,4 @@
+# -*- coding: cp1252 -*-
 import os, sys
 import argparse
 
@@ -9,13 +10,20 @@ import matplotlib.pyplot as plt
 import skimage
 import skimage.io as io
 
-path = "..\input"
-# Mostrar imagenes de una carpeta
+
+##Paso 1 - Carga de imágenes
+path = '..\input\\'
 files = os.listdir(path)
 
-for file in files:
-    print file
+train = list()
+test = list()
 
-#for file in files:
-#    skimage.data_dir
-#    io.imread("C:/Users/user/Documents/VC/P1/highway/highway/input/"+file, as_grey=True)
+for i in range(150):
+    print (path+files[i], "TRAIN")
+    train.append(io.imread(path+files[i], as_grey=True))
+
+for i in range(150):
+    print (path+files[i+150], "TEST")
+    test.append(io.imread(path+files[i+149], as_grey=True))
+
+

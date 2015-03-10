@@ -19,11 +19,18 @@ train = list()
 test = list()
 
 for i in range(150):
-    print (path+files[i], "TRAIN")
     train.append(io.imread(path+files[i], as_grey=True))
 
 for i in range(150):
-    print (path+files[i+150], "TEST")
     test.append(io.imread(path+files[i+149], as_grey=True))
 
+##Paso 2 - Media y desviación estándard
 
+train = np.array(train)
+test = np.array(test)
+
+meanTrain = np.mean(train, axis = 0)
+print meanTrain.size
+print train[0].size
+
+#print meanTrain

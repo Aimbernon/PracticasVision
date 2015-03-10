@@ -11,8 +11,7 @@ import matplotlib.pyplot as plt
 import skimage
 import skimage.io as io
 
-
-
+import numpy.ma as ma
 
 ##Paso 1 - Carga de imágenes
 path = '..\input\\'
@@ -36,5 +35,12 @@ meanTrain = np.mean(train, axis = 0)
 deviationTrain = np.std(train, axis= 0)
 
 #Si se quiere imprimir imágenes de estas dos matrices
-#misc.imsave('mediana.png', meanTrain)
+misc.imsave('mediana.png', meanTrain)
 #misc.imsave('desviacionEstandard.png', deviationTrain)
+
+##Paso 3 - Segmentar los coches restando el modelo de fondo
+
+#Anota los elementos menores al valor de recorte
+filtrado = ma.masked_less_equal(meanTrain,0.7)
+filtrado.fill_value = 0
+print filtrado.filled()

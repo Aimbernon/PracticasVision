@@ -14,6 +14,8 @@ import skimage.io as io
 import numpy.ma as ma
 
 ##Paso 1 - Carga de imágenes
+print "Leyendo imágenes"
+
 path = '..\input\\'
 files = os.listdir(path)
 
@@ -27,6 +29,7 @@ for i in range(150):
     test.append(io.imread(path+files[i+149], as_grey=True))
 
 ##Paso 2 - Media y desviación estándard
+print "Calculando media y desviación estándard"
 
 train = np.array(train)
 test = np.array(test)
@@ -35,12 +38,22 @@ meanTrain = np.mean(train, axis = 0)
 deviationTrain = np.std(train, axis= 0)
 
 #Si se quiere imprimir imágenes de estas dos matrices
-misc.imsave('mediana.png', meanTrain)
+#misc.imsave('mediana.png', meanTrain)
 #misc.imsave('desviacionEstandard.png', deviationTrain)
 
 ##Paso 3 - Segmentar los coches restando el modelo de fondo
+print "Segmentando los coches"
 
-#Anota los elementos menores al valor de recorte
-filtrado = ma.masked_less_equal(meanTrain,0.7)
-filtrado.fill_value = 0
-print filtrado.filled()
+nImagenes = test.size / test[0].size;
+
+for i in range(nImagenes):
+    #substrae el mean
+    resta = np.subtract(train[i],meanTrain)
+    #hace valor absoluto
+    restaAbs = np.absolute(resta)
+    #filtra los elementos menores al recorte
+    filtrado = ma.masked_less_equal(restaAbs,0.3)
+    filtrado = filtrado.filled(fill_value = 0)
+
+    #Si se quieren imprimir imagenes del proceso
+    #misc.imsave('pulido['+str(i)+'].png', filtrado)

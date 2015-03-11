@@ -41,22 +41,35 @@ deviationTrain = np.std(train, axis= 0)
 #misc.imsave('mediana.png', meanTrain)
 #misc.imsave('desviacionEstandard.png', deviationTrain)
 
-##Paso 3 - Segmentar los coches restando el modelo de fondo
+##Paso 3 y 4 - Segmentar los coches
 print "Segmentando los coches"
 
 nImagenes = test.size / test[0].size;
 
+
+alfa = raw_input("Valor de Alfa: ") #Recomendado 1.6
+beta = raw_input("Valor de Beta: ") #Recomendado 0.11
+
+#Se calcula la matriz de desviación
+matrixDesviacion = np.add(deviationTrain,float(beta))
+matrixDesviacion = np.multiply(matrixDesviacion,float(alfa))
+
 for i in range(nImagenes):
-    #substrae el mean
-    resta = np.subtract(train[i],meanTrain)
-    #hace valor absoluto
-    restaAbs = np.absolute(resta)
-    #filtra los elementos menores al recorte
-    filtrado = ma.masked_less_equal(restaAbs,0.3)
-    filtrado = filtrado.filled(fill_value = 0)
-    #filtra los elementos mayores y les pone 1
-    filtrado = ma.masked_greater(filtrado,0.3)
-    filtrado = filtrado.filled(fill_value = 1)
+    #Se substrae el mean
+    matriz = np.subtract(train[i],meanTrain)
+    #Se hace valor absoluto
+    matriz = np.absolute(matriz)
+    #Se sustraen los valores máximos de desviación
+    matriz = np.subtract(matriz,matrixDesviacion)
+    #Se ocultan los elementos que sean mayores a 0
+    matriz = ma.masked_greater(matriz,0)
+    #Se multiplica por 0 - Así los valores <0 se quedan en 0
+    matriz = np.multiply(matriz,0)
+    #Se hace valor absoluto de nuevo
+    #- Es algo decorativo, algunos elementos se quedan en -0#
+    matriz = np.absolute(matriz)
+    #Los elementos que no son 0 se convierten en 1
+    matriz = matriz.filled(fill_value = 1)
 
     #Si se quieren imprimir imagenes del proceso
-    misc.imsave('pulido['+str(i)+'].png', filtrado)
+    #misc.imsave('pulido['+str(i)+'].png', matriz)

@@ -13,6 +13,8 @@ import skimage.io as io
 
 import numpy.ma as ma
 
+import cv2
+
 ##Paso 1 - Carga de imágenes
 print "Leyendo imágenes"
 
@@ -45,14 +47,22 @@ deviationTrain = np.std(train, axis= 0)
 print "Segmentando los coches"
 
 nImagenes = test.size / test[0].size;
+tx = test[0][0].size
+ty = test[0].size / tx
 
+alfa = raw_input("Valor de Alfa (si no se pone nada, 1.6 por defecto): ") #Recomendado 1.6
+if(alfa == ""):
+    alfa = "1.6"
 
-alfa = raw_input("Valor de Alfa: ") #Recomendado 1.6
-beta = raw_input("Valor de Beta: ") #Recomendado 0.11
+beta = raw_input("Valor de Beta (si no se pone nada, 0.11 por defecto): ") #Recomendado 0.11
+if(beta == ""):
+    beta = "0.11"
 
 #Se calcula la matriz de desviación
 matrixDesviacion = np.add(deviationTrain,float(beta))
 matrixDesviacion = np.multiply(matrixDesviacion,float(alfa))
+
+frames = list()
 
 for i in range(nImagenes):
     #Se substrae el mean
@@ -71,5 +81,22 @@ for i in range(nImagenes):
     #Los elementos que no son 0 se convierten en 1
     matriz = matriz.filled(fill_value = 1)
 
+    frames.append(matriz);
+
     #Si se quieren imprimir imagenes del proceso
     #misc.imsave('pulido['+str(i)+'].png', matriz)
+
+##Paso 5 - Grabar un video
+#Se utiliza OpenCV
+print "Creando video"
+
+print "Por favor, seleccione un codec en la ventana emergente"
+writer = cv2.VideoWriter("output-python.avi", -1, 30, (tx,ty))
+
+for i in frames:
+    writer.write(i)
+
+writer.release()
+
+print "Ejecución finalizada"
+

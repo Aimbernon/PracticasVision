@@ -66,7 +66,7 @@ frames = list()
 
 for i in range(nImagenes):
     #Se substrae el mean
-    matriz = np.subtract(train[i],meanTrain)
+    matriz = np.subtract(test[i],meanTrain)
     #Se hace valor absoluto
     matriz = np.absolute(matriz)
     #Se sustraen los valores máximos de desviación

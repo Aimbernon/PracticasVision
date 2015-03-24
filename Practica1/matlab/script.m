@@ -2,14 +2,14 @@
 
 %----------------------------------------------------------------------
 % Tarea 1 : cargar datos:
-files = dir('input/*.jpg');
+files = dir('../input/*.jpg');
 % Reserva de memoria para las imagenes
 train = zeros(240,320,150);
 test = zeros (240,320,150);
 %Lectura de las imagenes de train y test
 for idx = 1:150
-    train(:,:,idx) = rgb2gray (imread(strcat('input/',files(idx).name)));
-	test(:,:,idx) = rgb2gray (imread(strcat('input/',files(idx+150).name)));
+    train(:,:,idx) = rgb2gray (imread(strcat('../input/',files(idx).name)));
+	test(:,:,idx) = rgb2gray (imread(strcat('../input/',files(idx+150).name)));
 end
 %----------------------------------------------------------------------
 % Tarea 2 : Media y desviación estandar "
@@ -56,9 +56,7 @@ video.FrameRate = 30;
 open(video);
 %Escribir cada frame del video con las imagenes
 for i = 1:size(img_final,3)
-   writeVideo(video,img_final(:,:,i));
+   writeVideo(video,cast(img_final(:,:,i),'uint8'));
 end
 % Cerrar el video
 close(video);
-
-

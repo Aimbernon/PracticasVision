@@ -90,7 +90,7 @@ int main()
       std::string buf("../input/");
       buf.append(namelist[i]->d_name);
       tmp = imread(buf,0);
-      tmp = abs(tmp-Mean) > alpha*(Deviation + beta);
+      //tmp = abs(tmp-Mean) > alpha*(Deviation + beta);
       writer.write(tmp);
     }
   }

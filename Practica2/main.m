@@ -2,7 +2,7 @@
 
 %Lectura de imagen
 clear
-im_in = imread('input2/0102.jpg');
+im_in = imread('input2/0105.jpg');
 
 %Recorte de imagen
 % opcion 1
@@ -34,13 +34,13 @@ for i = 1:size(im_in,2)
     end
 end
 im_in = im_in(i:end-i,:);
-
+figure
 imshow (im_in)
 
 % opcion 2 : determinar si es borde o no por el num de veces que el valor
 % de la columna/ fila esta entre 0:40. En ese caso se elimina la fila/columna
 
-im_in = imread('input2/0102.jpg');
+im_in = imread('input2/0105.jpg');
 % contar cuantas veces el valor del pixel esta entre el intervalo
 ccol = sum(histc (im_in,[0:40]));
 crows = sum(histc (im_in',[0:40]));
@@ -48,9 +48,8 @@ crows = sum(histc (im_in',[0:40]));
 im_in(:,ccol>200)=[];
 im_in (crows>200,:)=[];
 
-figure
+figure ('name', 'Eliminacion de los bordes','NumberTitle','off')
 imshow (im_in);
-%figure
 % Recorte de los 3 canales
 
 x= size(im_in,1)/3;
@@ -66,10 +65,10 @@ im(:,:,1) = im_in((x*2)+1:x*3,:);
 %Corr_Spacial(im) - Martí Serarols 
 %out =Corr_Fourier(im); % - Alfonso Imbernon
 %pause;
-%Corr_Fourier_Fase(im) - Raul Ramos
+out =Corr_Fourier_Fase(im);% - Raul Ramos
 %im_in = Corr_Norm(im); % Carles Carmona
 
-%Preprocesado
+%Postprocesado
 
 %imshow([im(:,:,1),im(:,:,2),im(:,:,3)]);
 

@@ -2,7 +2,7 @@
 
 %Lectura de imagen
 clear
-im_in = imread('input2/0105.jpg');
+im_in = imread('input2/0106.jpg');
 
 %Recorte de imagen
 % opcion 1
@@ -40,7 +40,7 @@ imshow (im_in)
 % opcion 2 : determinar si es borde o no por el num de veces que el valor
 % de la columna/ fila esta entre 0:40. En ese caso se elimina la fila/columna
 
-im_in = imread('input2/0105.jpg');
+im_in = imread('input2/0106.jpg');
 % contar cuantas veces el valor del pixel esta entre el intervalo
 ccol = sum(histc (im_in,[0:40]));
 crows = sum(histc (im_in',[0:40]));
@@ -69,7 +69,7 @@ out =Corr_Fourier_Fase(im);% - Raul Ramos
 %im_in = Corr_Norm(im); % Carles Carmona
 
 %Postprocesado
+out_e = Equalization(out);
 
-%imshow([im(:,:,1),im(:,:,2),im(:,:,3)]);
 
 

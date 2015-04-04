@@ -11,6 +11,7 @@ function im_out = Corr_Fourier( im )
 		% Producto de las imagenes
 		ff2 = conj(ff2);
 		ff = ff1.*ff2;
+		ff = ff./abs(ff);
 		ff =ifft2 (double (ff));
 
 		% Obtener la posicion del maximo y desplazar la imagen

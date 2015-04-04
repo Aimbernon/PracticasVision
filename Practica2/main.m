@@ -62,14 +62,15 @@ im(:,:,1) = im_in((x*2)+1:x*3,:);
 
 %Registering
 
-%Corr_Spacial(im) - Martí Serarols 
+%out =Corr_Spacial(im); %- Martí Serarols 
 %out =Corr_Fourier(im); % - Alfonso Imbernon
 %pause;
 out =Corr_Fourier_Fase(im);% - Raul Ramos
 %im_in = Corr_Norm(im); % Carles Carmona
 
 %Postprocesado
-out_e = Equalization(out);
+%out_e = Equalization(out);
+out_gwa = GWA (out);
 
 
 

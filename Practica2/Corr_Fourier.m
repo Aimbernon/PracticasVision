@@ -23,5 +23,5 @@ function im_out = Corr_Fourier( im )
 	end
 	% Comprovación del resultado con la img en color sin corr
 	figure ('name', 'Corr fourier','NumberTitle','off')
-	imshow ([im_out,im]);
+	imshow (im_out);
 end

@@ -10,6 +10,18 @@ for idx = 1:size(files,1)
 end
 
 % Proyeccion cilindrica (hoy la terminare: Alfonso)
-out = Pcilindrica (images (:,:,:,1),4000);
+%out = Pcilindrica (images (:,:,:,1),4000);
 
-imshow (out);
+clf;
+h = imagesc(images(:,:,:,1));
+axis image
+[x,y] = ginput(1);
+
+clf;
+h = imagesc(images(:,:,:,2));
+axis image
+hold on
+plot(x(:),y(:),'go');
+[x2,y2] = ginput(1);
+
+desplazamientoX = x2 - x;

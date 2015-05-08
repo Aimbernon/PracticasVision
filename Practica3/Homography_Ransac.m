@@ -11,7 +11,6 @@ function out  = Homography_Ransac( im1, im2 )
     indexPairs = matchFeatures(f1, f2) ;
     matchedPoints1 = vpts1(indexPairs(:, 1));
     matchedPoints2 = vpts2(indexPairs(:, 2));
-
     out = estimateGeometricTransform(matchedPoints1, matchedPoints2,...
         'projective', 'Confidence', 99.9, 'MaxNumTrials', 2000);
         
